@@ -7,6 +7,8 @@ import tictactoe as t
 
 bot = commands.Bot(command_prefix = '.')
 
+tic = t.TicTacToe()
+
 @bot.event
 async def on_ready():
     print("Logged in as:")
@@ -18,13 +20,15 @@ async def on_ready():
 @bot.command()
 async def jing(ctx):
     await ctx.send('NO U')
-#Simple Test for bot to add numbers
-@bot.command()
-async def add(ctx, num1: int, num2: int):
-    await ctx.send(num1 + num2)
+#Command to display tictactoe board
 @bot.command()
 async def tictactoe(ctx):
-    await ctx.send("```" + t.main() + "```")
+    await ctx.send("```" + tic.display() + "```")
+#Command to add symbol to tictactoe board
+@bot.command()
+async def add(ctx, coord: str):
+    tic.add(coord)
+    await ctx.send("```" + tic.display() + "```")
 
 
 bot.run(TOKEN)
